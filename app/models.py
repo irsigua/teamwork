@@ -13,27 +13,27 @@ class User(db.Model):
         return '<User {}>'.format(self.username) 
 
 
-class company_base(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    company_name_payer = db.Column(db.String(240),index=True)
-    company_name_recipient = db.Column(db.String(240),index=True)
-    
+class Company(db.Model):
+    inn = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(240),index=True)
+    directions = db.relationship("Direction",lazy='dynamic')
     def __repr__(self):
-        return '<Company_base {}>'.format(self)
+        return '<Company {}>'.format(self)
 
-class inn(db.Model):
+class Direction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    payer_inn = db.Column(db.Integer,index=True,unique=True)
-    recipient_inn = db.Column(db.Integer,index=True,unique=True)
+    payer = db.Column(db.Integer,index=True,unique=True,)
+    recipient = db.Column(db.Integer,index=True,unique=True)
+    company_inn = db.Column(db.Integer, db.ForeignKey('company.inn'))
     def __repr__(self):
-        return '<Inn {}>'.format(self)
+        return '<Direction {}>'.format(self)
     
-class payment_base(db.Model):
+class Payment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    payment_date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    payment_type = db.Column(db.String(120), index=True)
-    payment_distanation = db.Column(db.String(240),index=True)
-    payment_summ = db.Column(db.Integer,index=True,unique=True)
+    date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    type = db.Column(db.String(120), index=True)
+    distanation = db.Column(db.String(240),index=True)
+    summ = db.Column(db.Integer,index=True,unique=True)
     
     def __repr__(self):
-        return '<Payment_base {}>'.format(self) 
+        return '<Payment {}>'.format(self) 
