@@ -2,6 +2,7 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app.forms import LoginForm
+from app.models import Company
 
 @app.route('/')
 @app.route('/index')
@@ -16,3 +17,7 @@ def login():
             form.username.data, form.remember_me.data))
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign In', form=form)
+@app.route('/data',methods = ['GET'])
+def data():
+    company = Company.query.all()
+    return render_template('result.html')
