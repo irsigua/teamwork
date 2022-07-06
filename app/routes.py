@@ -19,5 +19,5 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 @app.route('/data',methods = ['GET'])
 def data():
-    company = Company.query.all()
-    return render_template('result.html')
+    company = Company.query.order_by(Company.inn).all()
+    return render_template('result.html',company=company)
