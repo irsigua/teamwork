@@ -2,7 +2,7 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app.forms import LoginForm
-from app.models import Company
+from app.models import Company, Direction
 
 @app.route('/')
 @app.route('/index')
@@ -24,4 +24,11 @@ def data():
     for company in companys:
         companys_dict['inn'] = company.inn
         companys_dict['name'] = company.name
-    return render_template('data.html',companys=companys)
+    directions = Direction.query.order_by(Direction.set_number).all()
+    directions_dict={}
+    for direction in directions:
+        directions_dict['set_number'] = direction.set_number
+        directions_dict['payer'] = direction.payer
+        directions_dict['recipient'] = direction.recipient
+    print(companys_dict)    
+    return render_template('data.html',companys=companys,directions=directions)

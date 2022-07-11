@@ -1,7 +1,6 @@
 from app import db
 from datetime import datetime
 
-from app import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -21,7 +20,7 @@ class Company(db.Model):
         return '<Company {}>'.format(self)
 
 class Direction(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
+    set_number = db.Column(db.Integer,primary_key=True)
     company_inn = db.Column(db.Integer,db.ForeignKey('company.inn'))
     payer = db.Column(db.Integer,index=True,unique=True,)
     recipient = db.Column(db.Integer,index=True,unique=True)
