@@ -19,5 +19,9 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 @app.route('/data',methods = ['GET'])
 def data():
-    company = Company.query.order_by(Company.inn).all()
-    return render_template('result.html',company=company)
+    companys = Company.query.order_by(Company.inn).all()
+    companys_dict={}
+    for company in companys:
+        companys_dict['inn'] = company.inn
+        companys_dict['name'] = company.name
+    return render_template('data.html',companys=companys)
