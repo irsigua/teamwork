@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Базы данных</h1>
+
+{% for el in companys %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">INN</th>
+      <th scope="col">NAME</th>
+    </tr>
+  </thead>
+<tbody>
+  <tr>
+    <td>{{ el.inn }}</td>
+    <td>{{ el.name }}</td>
+  </tr>
+</tbody> 
+</table>
+
+
+{% endfor %}
+
+{% endblock %}
