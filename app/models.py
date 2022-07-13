@@ -21,8 +21,8 @@ class Company(db.Model):
 
 class Direction(db.Model):
     set_number = db.Column(db.Integer,primary_key=True)
-    company_inn = db.Column(db.Integer,db.ForeignKey('company.inn'))#поменять местами с 25
-    payer = db.Column(db.Integer,index=True,unique=True,)
+    payer= db.Column(db.Integer,db.ForeignKey('company.inn'))#поменять местами с 25
+    company_inn = db.Column(db.Integer,index=True,unique=True,)
     recipient = db.Column(db.Integer,index=True,unique=True)
     def __repr__(self):
         return '<Direction {}>'.format(self)
