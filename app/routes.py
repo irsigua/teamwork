@@ -1,19 +1,26 @@
 # -*- coding: utf-8 -*- 
 import profile
-from flask import render_template, flash, redirect, url_for, request
-from app import app
-from app.forms import LoginForm
-import requests
+from unittest import result
+from flask import render_template, flash, redirect, url_for, request, Blueprint
+import sqlalchemy
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField
+from wtforms import SubmitField
 import csv
 
-@app.route('/')
-@app.route('/index')
+class MyForm(FlaskForm):
+    file = FileField('File')
+    submit = SubmitField('Submit')
+csv_bp = Blueprint('csv_bp', __name__)
+
+@csv_bp.route('/')
+@csv_bp.route('/index')
 def index():
     user = {'username': 'User'}
     return render_template('index.html', title='Home', user=user)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@csv_bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -23,8 +30,11 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 
 
-@app.route('/upload', methods=['POST'])
-def upload():
+@csv_bp.route('/get_csv', methods=['POST'])
+def get_csv():
     request_info = request.files['file']
+    f = request_info.readlines()
+    print(f)
+    return {'ответ': 'все ок'}
     
 
