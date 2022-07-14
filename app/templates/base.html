@@ -1,16 +1,17 @@
 <html>
     <head>
         {% if title %}
-        <title>{{ title }} - web_project</title>
+        <title>{{ title }} - Проектище</title>
         {% else %}
-        <title>web_project</title>
+        <title>Проектище</title>
         {% endif %}
     </head>
     <body>
         <div>
-            web_project:
+            Проектище:
             <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('data') }}">Data</a>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
