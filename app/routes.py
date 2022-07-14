@@ -1,15 +1,28 @@
 # -*- coding: utf-8 -*- 
-from flask import render_template, flash, redirect, url_for
+import profile
+from unittest import result
+from flask import render_template, flash, redirect, url_for, request, Blueprint
+import sqlalchemy
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField
+from wtforms import SubmitField
+import csv
 from app import app
 from app.forms import LoginForm
 from app.models import Company, Direction
 
-@app.route('/')
-@app.route('/index')
+class MyForm(FlaskForm):
+    file = FileField('File')
+    submit = SubmitField('Submit')
+csv_bp = Blueprint('csv_bp', __name__)
+
+@csv_bp.route('/')
+@csv_bp.route('/index')
 def index():
     user = {'username': 'Ираклий'}
     return render_template('index.html', title='Home', user=user)
-@app.route('/login', methods=['GET', 'POST'])
+
+@csv_bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -17,7 +30,17 @@ def login():
             form.username.data, form.remember_me.data))
         return redirect(url_for('index'))
     return render_template('login.html', title='Sign In', form=form)
-@app.route('/data',methods = ['GET'])
+
+
+@csv_bp.route('/get_csv', methods=['POST'])
+def get_csv():
+    request_info = request.files['file']
+    f = request_info.readlines()
+    print(f)
+    return {'ответ': 'все ок'}
+    
+
+@csv_bp.route('/data',methods = ['GET'])
 def data():
     companys = Company.query.join(Direction,Company.inn==Direction.company_inn).with_entities(Company.inn,Company.name,Direction.set_number,Direction.payer,Direction.recipient).all()
     companys_list = []
