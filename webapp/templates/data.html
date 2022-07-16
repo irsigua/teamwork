@@ -5,20 +5,19 @@
 <h1>Базы данных</h1>
 
 {% for el in companys %}
-<table class="table">
+<table class="table table-dark table-striped">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">INN</th>
       <th scope="col">NAME</th>
+      <th scope="col">PAYER</th>
+      <th scope="col">RECIPIENT</th>
     </tr>
   </thead>
 <tbody>
   <tr>
-    <th scope="row">1</th>
     <td>{{ el.inn }}</td>
     <td>{{ el.name }}</td>
-    <td>{{ el.set_number }}</td>
     <td>{{ el.payer }}</td>
     <td>{{ el.recipient }}</td>
   </tr>
