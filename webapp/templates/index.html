@@ -5,4 +5,12 @@
     {% for post in posts %}
     <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
     {% endfor %}
+
+    <h1>Загрузите новый CSV файл</h1>
+    <form method="POST" action="{{ url_for('load') }}" enctype="multipart/form-data">
+      <p><input type="file" name="file"></p>
+      <p><input type="submit" value="Submit"></p>
+    </form>
+    <hr>
+
 {% endblock %}

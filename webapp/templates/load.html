@@ -2,12 +2,11 @@
 
 {% block content %}
 
-<h1>Upload new File</h1>
-<form>
-   <div class="form-group">
-     <label for="exampleFormControlFile1">Выберите файл</label>
-     <input type="file" class="form-control-file" id="exampleFormControlFile1">
-   </div>
- </form>  
+<h1>Загрузите новый CSV файл</h1>
+<form method="POST" action="" enctype="multipart/form-data">
+  <p><input type="file" name="file"></p>
+  <p><input type="submit" value="Submit"></p>
+</form>
+<hr>
       
 {% endblock %}
